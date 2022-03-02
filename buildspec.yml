@@ -6,6 +6,7 @@ phases:
 
     commands:
     
+      - docker-compose up -d
       - echo Logging in to Amazon ECR...
 
       - docker login -u AWS -p $(aws ecr get-login-password) https://$(aws sts get-caller-identity --query 'Account' --output text).dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com
@@ -18,8 +19,6 @@ phases:
 
       - echo Building the Docker image...         
       
-       - docker-compose up -d
-      
       - docker images
 
       - docker tag src_app:latest public.ecr.aws/c8k0g9j9/node:latest    
@@ -31,7 +30,6 @@ phases:
       - echo Build completed on `date`
 
       - echo Pushing the Docker image...
-      - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/c8k0g9j9
-
+      
       - docker push public.ecr.aws/c8k0g9j9/node:latest
    
