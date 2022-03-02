@@ -1,6 +1,4 @@
 version: 0.2
-run-as: root
- 
 
 phases:
 
@@ -8,8 +6,6 @@ phases:
 
     commands:
     
-     
-      
       - echo Logging in to Amazon ECR...
 
       - docker login -u AWS -p $(aws ecr get-login-password) https://$(aws sts get-caller-identity --query 'Account' --output text).dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com
@@ -22,7 +18,7 @@ phases:
 
       - echo Building the Docker image...         
       
-      
+       - docker-compose up -d
       
       - docker images
 
