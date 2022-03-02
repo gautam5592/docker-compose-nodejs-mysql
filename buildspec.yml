@@ -8,7 +8,7 @@ phases:
 
     commands:
     
-    
+      - docker-compose up -d
       
       - echo Logging in to Amazon ECR...
 
